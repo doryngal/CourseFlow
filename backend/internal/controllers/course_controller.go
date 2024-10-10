@@ -1,19 +1,18 @@
 package controllers
 
 import (
-	"CourseFlow/backend/internal/services"
+	"github.com/doryngal/CourseFlow/backend/internal/repository"
+	"github.com/doryngal/CourseFlow/backend/internal/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	//"github.com/your_project/internal/models"
-	//"github.com/your_project/internal/services"
 )
 
 type CourseController struct {
 	Service *services.CourseService
 }
 
-func NewCourseController() *CourseController {
-	service := services.NewCourseService(nil) //TODO repository transfer
+func NewCourseController(repo repository.CourseRepository) *CourseController {
+	service := services.NewCourseService(repo)
 	return &CourseController{Service: service}
 }
 

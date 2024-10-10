@@ -1,10 +1,10 @@
 package services
 
 import (
-	//"github.com/your_project/internal/models"
-	//"github.com/your_project/internal/repository"
-	"CourseFlow/backend/internal/models"
-	"CourseFlow/backend/internal/repository"
+	"errors"
+	"github.com/doryngal/CourseFlow/backend/internal/models"
+	"github.com/doryngal/CourseFlow/backend/internal/repository"
+	"time"
 )
 
 type CourseService struct {
@@ -18,6 +18,17 @@ func NewCourseService(repo repository.CourseRepository) *CourseService {
 }
 
 func (s *CourseService) CreateCourse(course models.Course) error {
+	if course.Name == "" || course.Author == "" {
+		return errors.New("course name and author are required")
+	}
+
+	if course.Duration <= 0 {
+		return errors.New("course duration must be greater than 0")
+	}
+
+	course.CreatedAt = time.Now()
+	course.UpdatedAt = time.Now()
+
 	return s.Repo.Save(course)
 }
 

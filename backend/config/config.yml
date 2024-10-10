@@ -7,6 +7,9 @@ database:
   user: postgres
   password: 349349
   dbname: CourseFlow
+migrations:
+  path: "file:backend/migrations"
+  db: "postgres"
 
 #file:
 #  excel_path: /path/to/excel/files
