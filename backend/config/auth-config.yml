@@ -1,0 +1,18 @@
+jwt_secret:
+
+server:
+  port: 8080
+smtp:
+  host: "smtp.gmail.com"
+  port: 587
+  user: "check.code.for.spam.mail@gmail.com"
+  password: "qpdq hwcp bjtw qjym"
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: 349349
+  dbname: CourseFlow
+migrations:
+  path: "file:backend/migrations/auth-service"
+  db: "postgres"

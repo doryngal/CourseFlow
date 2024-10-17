@@ -1,18 +1,18 @@
-package migrate
+package main
 
 import (
 	"flag"
+	"github.com/doryngal/CourseFlow/backend/internal/course-service/migrations"
 	"log"
 
 	"github.com/doryngal/CourseFlow/backend/config"
-	"github.com/doryngal/CourseFlow/backend/internal/migrations"
 )
 
 func main() {
 	migrate := flag.Bool("migrate", false, "Apply migrations")
 	flag.Parse()
 
-	cfg := config.InitConfig()
+	cfg := config.InitCourseConfig()
 
 	db, err := config.ConnectDB(cfg)
 	if err != nil {
@@ -20,7 +20,7 @@ func main() {
 	}
 	defer db.Close()
 
-	if *migrate {
+	if !*migrate {
 		err := migrations.ApplyMigrations(db, cfg)
 		if err != nil {
 			log.Fatalf("Failed to apply migrations: %v", err)
