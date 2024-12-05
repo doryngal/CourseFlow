@@ -25,8 +25,8 @@ type AuthConfig struct {
 	}
 }
 
-func loadAuthConfig() (*CourseConfig, error) {
-	var cfg CourseConfig
+func loadAuthConfig() (*AuthConfig, error) {
+	var cfg AuthConfig
 
 	viper.SetConfigFile("backend/config/auth-config.yml")
 	viper.WatchConfig()
@@ -45,7 +45,7 @@ func loadAuthConfig() (*CourseConfig, error) {
 	return &cfg, nil
 }
 
-func InitAuthConfig() *CourseConfig {
+func InitAuthConfig() *AuthConfig {
 	cfg, err := loadAuthConfig()
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
@@ -53,7 +53,7 @@ func InitAuthConfig() *CourseConfig {
 	return cfg
 }
 
-func ConnectAuthDB(cfg *CourseConfig) (*sql.DB, error) {
+func ConnectAuthDB(cfg *AuthConfig) (*sql.DB, error) {
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.DbName)
 

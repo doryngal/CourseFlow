@@ -1,4 +1,4 @@
-package service
+package services
 
 import (
 	"errors"
@@ -18,12 +18,8 @@ func NewCourseService(repo repository.CourseRepository) *CourseService {
 }
 
 func (s *CourseService) CreateCourse(course models.Course) error {
-	if course.Name == "" || course.Author == "" {
+	if course.Title == "" || course.InstructorID > 0 {
 		return errors.New("course name and author are required")
-	}
-
-	if course.Duration <= 0 {
-		return errors.New("course duration must be greater than 0")
 	}
 
 	course.CreatedAt = time.Now()

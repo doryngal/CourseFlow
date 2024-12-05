@@ -22,9 +22,9 @@ func NewPgCourseRepository(db *sql.DB) *PgCourseRepository {
 
 func (r *PgCourseRepository) Save(course models.Course) error {
 	query := `
-		INSERT INTO courses (id, name, author, duration, created_at, updated_at)
+		INSERT INTO courses (id, title, description, instructor_id, created_at, updated_at, modules)
 		VALUES ($1, $2, $3, $4, $5, $6)`
-	_, err := r.DB.Exec(query, course.ID, course.Name, course.Author, course.Duration, course.CreatedAt, course.UpdatedAt)
+	_, err := r.DB.Exec(query, course.ID, course.Title, course.Description, course.InstructorID, course.CreatedAt, course.UpdatedAt, course.ModulesID)
 	if err != nil {
 		log.Printf("Error while inserting course: %v\n", err)
 		return err
@@ -34,7 +34,7 @@ func (r *PgCourseRepository) Save(course models.Course) error {
 
 func (r *PgCourseRepository) GetAll() ([]models.Course, error) {
 	query := `
-		SELECT id, name, author, duration, created_at, updated_at 
+		SELECT id, title, description, instructor_id, created_at, updated_at, modules 
 		FROM courses`
 	rows, err := r.DB.Query(query)
 	if err != nil {
@@ -46,8 +46,8 @@ func (r *PgCourseRepository) GetAll() ([]models.Course, error) {
 	var courses []models.Course
 	for rows.Next() {
 		var course models.Course
-		err := rows.Scan(&course.ID, &course.Name, &course.Author,
-			&course.Duration, &course.CreatedAt, &course.UpdatedAt)
+		err := rows.Scan(&course.ID, &course.Title, &course.Description,
+			&course.InstructorID, &course.CreatedAt, &course.UpdatedAt, &course.ModulesID)
 		if err != nil {
 			log.Printf("Error while scanning course: %v", err)
 			return nil, err
@@ -59,5 +59,5 @@ func (r *PgCourseRepository) GetAll() ([]models.Course, error) {
 		log.Printf("Rows error: %v", err)
 		return nil, err
 	}
-	return []models.Course{}, nil
+	return courses, nil
 }

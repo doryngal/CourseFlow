@@ -25,3 +25,8 @@ func (cc *CourseController) GetCourses(c *gin.Context) {
 	//TODO course delivery logic
 	c.JSON(http.StatusOK, gin.H{"message": "OKKK"})
 }
+
+func (cc *CourseController) GetCourseById(c *gin.Context) {
+	//TODO logic
+	c.JSON(http.StatusOK, gin.H{"message": "OKKK"})
+}

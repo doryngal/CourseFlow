@@ -5,8 +5,8 @@ server:
 smtp:
   host: "smtp.gmail.com"
   port: 587
-  user: "check.code.for.spam.mail@gmail.com"
-  password: "qpdq hwcp bjtw qjym"
+  user: "email"
+  password: "password"
 database:
   host: localhost
   port: 5432
